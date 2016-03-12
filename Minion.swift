@@ -3,7 +3,6 @@
 import Foundation
 
 enum Action: String {
-  case InstallAlcatraz = "install_alcatraz"
   case Update = "update"
   case DVTPlugInCompatibilityUUID = "uuid"
   case PluginFolder = "plugin_folder"
@@ -47,27 +46,43 @@ struct Command {
   }
 }
 
+// MARK: - Helper
+struct Helper {
+  static func pluginFolderPath() -> String {
+    return "\(NSHomeDirectory())/Library/Application Support/Developer/Shared/Xcode/Plug-ins"
+  }
+}
 
 // MARK: - Action
 struct Minion {
-  static func installAlcatraz() {
-    Command.execute(Command.which("curl"), arguments: ["-fsSL", "https://raw.github.com/supermarin/Alcatraz/master/Scripts/install.sh | sh"])
-  }
-  
-  static func update() {
+  static func update() throws {
+    print("Begin updating")
     
+    let plugins = try NSFileManager().contentsOfDirectoryAtPath(Helper.pluginFolderPath()).filter { !$0.hasPrefix(".") }
+    let uuid = Minion.UUID()
+    
+    plugins.forEach { plugin in
+      print(plugin)
+      
+      let plist = "\(Helper.pluginFolderPath())/\(plugin)/Contents/Info.plist"
+      let change = "Add :DVTPlugInCompatibilityUUIDs: string \(uuid)"
+      
+      Command.execute("/usr/libexec/PlistBuddy", arguments: ["-c", change, "\(plist)"])
+    }
+    
+    print("Done. Please restart Xcoce")
   }
   
   static func UUID() -> String {
-    let uuid = Command.read(Command.which("defaults"), arguments: ["read", "/Applications/Xcode.app/Contents/Info", "DVTPlugInCompatibilityUUID"])
-    
-    print(uuid)
-    
-    return uuid
+    return Command.read(Command.which("defaults"), arguments: ["read", "/Applications/Xcode.app/Contents/Info", "DVTPlugInCompatibilityUUID"])
+  }
+  
+  static func printUUID() {
+    print(Minion.UUID())
   }
   
   static func goToPluginFolder() {
-    Command.execute("./PluginFolder.command", arguments: [])
+    Command.execute(Command.which("open"), arguments: [Helper.pluginFolderPath()])
   }
 }
 
@@ -79,12 +94,10 @@ func main(arguments: [String]) {
     else { return }
   
   switch action {
-  case .InstallAlcatraz:
-    Minion.installAlcatraz()
   case .Update:
-    Minion.update()
+    try! Minion.update()
   case .DVTPlugInCompatibilityUUID:
-    Minion.UUID()
+    Minion.printUUID()
   case .PluginFolder:
     Minion.goToPluginFolder()
   }
