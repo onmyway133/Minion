@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		D2F4F8EF1C922840004CB6A3 /* Minion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Minion; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2FCAD4A1C94CB7300B0524A /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D2FCAD4C1C94D59200B0524A /* PluginFolder.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = PluginFolder.command; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				D2FCAD4A1C94CB7300B0524A /* main.swift */,
+				D2FCAD4C1C94D59200B0524A /* PluginFolder.command */,
 			);
 			path = Minion;
 			sourceTree = "<group>";

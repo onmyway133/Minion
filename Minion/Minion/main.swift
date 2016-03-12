@@ -67,7 +67,7 @@ struct Minion {
   }
   
   static func goToPluginFolder() {
-    Command.execute(Command.which("open"), arguments: ["~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/"])
+    Command.execute("./PluginFolder.command", arguments: [])
   }
 }
 
