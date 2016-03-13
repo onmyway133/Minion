@@ -1,9 +1,14 @@
 # Minion
 Working with Xcode plugins
 
-## Usage
+## Install
 
-## Features
+```
+brew tap onmyway133/formulae
+brew install minion
+```
+
+## Usage
 
 - `minion.swift uuid`
 > Print the current Xcode DVTPlugInCompatibilityUUID
