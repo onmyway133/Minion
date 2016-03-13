@@ -5,6 +5,15 @@ Working with Xcode plugins
 
 ## Features
 
+- `minion.swift uuid`
+> Print the current Xcode DVTPlugInCompatibilityUUID
+
+- `minion.swift plugin_folder`
+> Go to Plugins folder
+
+- `minion.swift update`
+> Update all Xcode plugins DVTPlugInCompatibilityUUID
+
 ## Author
 
 Khoa Pham, onmyway133@gmail.com
