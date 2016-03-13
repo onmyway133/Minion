@@ -70,7 +70,7 @@ struct Minion {
       Command.execute("/usr/libexec/PlistBuddy", arguments: ["-c", change, "\(plist)"])
     }
     
-    print("Done. Please restart Xcoce")
+    print("Done. Please restart Xcode")
   }
   
   static func UUID() -> String {
